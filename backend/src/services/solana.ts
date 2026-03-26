@@ -4,15 +4,28 @@ import { provider, config } from "../config";
 import fs from "fs";
 import path from "path";
 
-// Load IDLs
-const hookIdlPath = path.join(
-  __dirname,
-  "../../../target/idl/clearpath_hook.json"
-);
-const treasuryIdlPath = path.join(
-  __dirname,
-  "../../../target/idl/clearpath_treasury.json"
-);
+// Load IDLs.
+// In Vercel serverless, only `dist/` is reliably packaged, so we copy the
+// IDLs into `dist/target/idl/` during build and resolve from multiple paths.
+function resolveIdlPath(fileName: string): string {
+  const candidates = [
+    // Production/serverless (after `tsc` + copy step)
+    path.join(__dirname, "../target/idl/", fileName),
+    // Local dev from TS sources
+    path.join(__dirname, "../../../target/idl/", fileName),
+    // Extra fallbacks (handles different cwd/layouts)
+    path.join(process.cwd(), "target/idl/", fileName),
+    path.join(process.cwd(), "..", "target/idl/", fileName),
+  ];
+
+  for (const c of candidates) {
+    if (fs.existsSync(c)) return c;
+  }
+  return candidates[0];
+}
+
+const hookIdlPath = resolveIdlPath("clearpath_hook.json");
+const treasuryIdlPath = resolveIdlPath("clearpath_treasury.json");
 
 let hookProgram: Program;
 let treasuryProgram: Program;

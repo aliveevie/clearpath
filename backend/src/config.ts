@@ -62,36 +62,38 @@ export const config = {
   port: parseInt(process.env.PORT || "3001", 10),
 };
 
-// Validate required program IDs at import time
+// Validate required program IDs at import time.
+// Do not `process.exit()` here: in serverless environments, that breaks even
+// basic endpoints like `/health` if env vars aren't present.
 function validateConfig() {
   const missing: string[] = [];
   if (!config.hookProgramId) missing.push("HOOK_PROGRAM_ID");
   if (!config.treasuryProgramId) missing.push("TREASURY_PROGRAM_ID");
 
   if (missing.length > 0) {
-    console.error(
+    console.warn(
       `Missing required config: ${missing.join(", ")}. ` +
-        `Set them in .env or ensure Anchor.toml is accessible.`
+        `The server can still start (e.g. for /health), but Solana-backed routes may fail.`
     );
-    process.exit(1);
+    return;
   }
 
   // Validate they are valid public keys
   try {
     new PublicKey(config.hookProgramId);
   } catch {
-    console.error(
+    console.warn(
       `Invalid HOOK_PROGRAM_ID: "${config.hookProgramId}" is not a valid public key.`
     );
-    process.exit(1);
+    return;
   }
   try {
     new PublicKey(config.treasuryProgramId);
   } catch {
-    console.error(
+    console.warn(
       `Invalid TREASURY_PROGRAM_ID: "${config.treasuryProgramId}" is not a valid public key.`
     );
-    process.exit(1);
+    return;
   }
 }
 
