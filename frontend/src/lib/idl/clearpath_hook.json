@@ -1,0 +1,1042 @@
+{
+  "address": "H1GnvpH6ExjedB3uDsB3UF2aNRKtTj7R7Zp14f4qzkem",
+  "metadata": {
+    "name": "clearpath_hook",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "ClearPath Compliance Hook — Token-2022 Transfer Hook for KYC/AML/Travel Rule"
+  },
+  "instructions": [
+    {
+      "name": "add_to_whitelist",
+      "discriminator": [
+        157,
+        211,
+        52,
+        54,
+        144,
+        81,
+        5,
+        55
+      ],
+      "accounts": [
+        {
+          "name": "whitelist_entry",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  107,
+                  121,
+                  99
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "wallet",
+          "docs": [
+            "The wallet to whitelist"
+          ]
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Compliance admin authority"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "kyc_tier",
+          "type": "u8"
+        },
+        {
+          "name": "kyc_expiry",
+          "type": "i64"
+        },
+        {
+          "name": "region_code",
+          "type": {
+            "array": [
+              "u8",
+              2
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "execute",
+      "discriminator": [
+        105,
+        37,
+        101,
+        197,
+        75,
+        251,
+        102,
+        26
+      ],
+      "accounts": [
+        {
+          "name": "source",
+          "docs": [
+            "Source token account"
+          ]
+        },
+        {
+          "name": "mint",
+          "docs": [
+            "The Token-2022 mint"
+          ]
+        },
+        {
+          "name": "destination",
+          "docs": [
+            "Destination token account"
+          ]
+        },
+        {
+          "name": "owner",
+          "docs": [
+            "Source token account owner/authority"
+          ]
+        },
+        {
+          "name": "extra_account_metas",
+          "docs": [
+            "Extra account metas PDA"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  120,
+                  116,
+                  114,
+                  97,
+                  45,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116,
+                  45,
+                  109,
+                  101,
+                  116,
+                  97,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "sender_whitelist",
+          "docs": [
+            "Sender's whitelist entry PDA"
+          ],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  107,
+                  121,
+                  99
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              }
+            ]
+          }
+        },
+        {
+          "name": "receiver_whitelist",
+          "docs": [
+            "Receiver's whitelist entry PDA"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "init_fx_config",
+      "discriminator": [
+        92,
+        97,
+        157,
+        126,
+        182,
+        128,
+        50,
+        90
+      ],
+      "accounts": [
+        {
+          "name": "fx_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  102,
+                  120
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "currency_pair"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "FX rate authority"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "currency_pair",
+          "type": {
+            "array": [
+              "u8",
+              6
+            ]
+          }
+        },
+        {
+          "name": "rate",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_extra_account_metas",
+      "discriminator": [
+        22,
+        213,
+        130,
+        114,
+        1,
+        174,
+        121,
+        36
+      ],
+      "accounts": [
+        {
+          "name": "extra_account_metas",
+          "docs": [
+            "The extra account metas PDA to initialize"
+          ],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  120,
+                  116,
+                  114,
+                  97,
+                  45,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116,
+                  45,
+                  109,
+                  101,
+                  116,
+                  97,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint",
+          "docs": [
+            "The Token-2022 mint"
+          ]
+        },
+        {
+          "name": "payer",
+          "docs": [
+            "Authority / payer"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "record_travel_rule",
+      "discriminator": [
+        95,
+        165,
+        201,
+        12,
+        181,
+        67,
+        42,
+        121
+      ],
+      "accounts": [
+        {
+          "name": "travel_rule_record",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Compliance admin authority"
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "tx_signature",
+          "type": {
+            "array": [
+              "u8",
+              64
+            ]
+          }
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "currency_pair",
+          "type": {
+            "array": [
+              "u8",
+              6
+            ]
+          }
+        },
+        {
+          "name": "sender_vasp",
+          "type": "pubkey"
+        },
+        {
+          "name": "receiver_vasp",
+          "type": "pubkey"
+        },
+        {
+          "name": "encrypted_payload",
+          "type": {
+            "array": [
+              "u8",
+              256
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "remove_from_whitelist",
+      "discriminator": [
+        7,
+        144,
+        216,
+        239,
+        243,
+        236,
+        193,
+        235
+      ],
+      "accounts": [
+        {
+          "name": "whitelist_entry",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  107,
+                  121,
+                  99
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "whitelist_entry.wallet",
+                "account": "WhitelistEntry"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Compliance admin authority (receives rent back)"
+          ],
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "update_fx_rate",
+      "discriminator": [
+        81,
+        49,
+        150,
+        190,
+        196,
+        12,
+        28,
+        207
+      ],
+      "accounts": [
+        {
+          "name": "fx_config",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "FX rate authority"
+          ],
+          "signer": true,
+          "relations": [
+            "fx_config"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "rate",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "update_whitelist",
+      "discriminator": [
+        94,
+        198,
+        33,
+        20,
+        192,
+        97,
+        44,
+        59
+      ],
+      "accounts": [
+        {
+          "name": "whitelist_entry",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  107,
+                  121,
+                  99
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "whitelist_entry.wallet",
+                "account": "WhitelistEntry"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "docs": [
+            "Compliance admin authority"
+          ],
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "kyc_tier",
+          "type": "u8"
+        },
+        {
+          "name": "kyc_expiry",
+          "type": "i64"
+        },
+        {
+          "name": "region_code",
+          "type": {
+            "array": [
+              "u8",
+              2
+            ]
+          }
+        },
+        {
+          "name": "is_sanctioned",
+          "type": "bool"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "FxConfig",
+      "discriminator": [
+        3,
+        215,
+        187,
+        254,
+        123,
+        21,
+        122,
+        179
+      ]
+    },
+    {
+      "name": "TravelRuleRecord",
+      "discriminator": [
+        2,
+        179,
+        102,
+        25,
+        10,
+        202,
+        48,
+        152
+      ]
+    },
+    {
+      "name": "WhitelistEntry",
+      "discriminator": [
+        51,
+        70,
+        173,
+        81,
+        219,
+        192,
+        234,
+        62
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "ComplianceTransferEvent",
+      "discriminator": [
+        228,
+        163,
+        43,
+        212,
+        163,
+        233,
+        181,
+        121
+      ]
+    },
+    {
+      "name": "FxRateUpdatedEvent",
+      "discriminator": [
+        149,
+        57,
+        183,
+        118,
+        140,
+        213,
+        103,
+        101
+      ]
+    },
+    {
+      "name": "TravelRuleRecordedEvent",
+      "discriminator": [
+        97,
+        244,
+        121,
+        189,
+        229,
+        128,
+        11,
+        33
+      ]
+    },
+    {
+      "name": "WhitelistUpdatedEvent",
+      "discriminator": [
+        169,
+        194,
+        170,
+        187,
+        5,
+        105,
+        100,
+        156
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NotWhitelisted",
+      "msg": "Wallet is not whitelisted — KYC required"
+    },
+    {
+      "code": 6001,
+      "name": "KycExpired",
+      "msg": "KYC verification has expired"
+    },
+    {
+      "code": 6002,
+      "name": "SanctionedRegion",
+      "msg": "Transfer rejected — sanctioned jurisdiction"
+    },
+    {
+      "code": 6003,
+      "name": "TravelRuleViolation",
+      "msg": "Travel Rule record required for this transfer amount"
+    },
+    {
+      "code": 6004,
+      "name": "Unauthorized",
+      "msg": "Unauthorized — admin signature required"
+    },
+    {
+      "code": 6005,
+      "name": "InvalidFxRate",
+      "msg": "Invalid FX rate data"
+    },
+    {
+      "code": 6006,
+      "name": "InsufficientSigners",
+      "msg": "Insufficient signers for multi-sig authorization"
+    },
+    {
+      "code": 6007,
+      "name": "TimelockNotExpired",
+      "msg": "Timelock has not expired"
+    },
+    {
+      "code": 6008,
+      "name": "InvalidExtraAccountMetas",
+      "msg": "Invalid extra account metas"
+    }
+  ],
+  "types": [
+    {
+      "name": "ComplianceTransferEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "sender",
+            "type": "pubkey"
+          },
+          {
+            "name": "receiver",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "sender_region",
+            "type": {
+              "array": [
+                "u8",
+                2
+              ]
+            }
+          },
+          {
+            "name": "receiver_region",
+            "type": {
+              "array": [
+                "u8",
+                2
+              ]
+            }
+          },
+          {
+            "name": "requires_travel_rule",
+            "type": "bool"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FxConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "currency_pair",
+            "docs": [
+              "Currency pair identifier (e.g. b\"USDCHF\")"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                6
+              ]
+            }
+          },
+          {
+            "name": "rate",
+            "docs": [
+              "FX rate as fixed-point with 6 decimal places (e.g. 883_450 = 0.883450 CHF/USD)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_updated",
+            "docs": [
+              "Unix timestamp of last rate update"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "authority",
+            "docs": [
+              "Authority allowed to update the FX rate"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FxRateUpdatedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "currency_pair",
+            "type": {
+              "array": [
+                "u8",
+                6
+              ]
+            }
+          },
+          {
+            "name": "rate",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TravelRuleRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "tx_signature",
+            "docs": [
+              "Transaction signature that triggered this record"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "docs": [
+              "Transfer amount in token lamports"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "currency_pair",
+            "docs": [
+              "Currency pair (e.g. b\"USDCHF\")"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                6
+              ]
+            }
+          },
+          {
+            "name": "sender_vasp",
+            "docs": [
+              "Sender VASP (bank/custodian) public key"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "receiver_vasp",
+            "docs": [
+              "Receiver VASP (bank/custodian) public key"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "encrypted_payload",
+            "docs": [
+              "AES-256 encrypted sender/receiver PII payload"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                256
+              ]
+            }
+          },
+          {
+            "name": "timestamp",
+            "docs": [
+              "Unix timestamp of the record creation"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TravelRuleRecordedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "tx_signature",
+            "type": {
+              "array": [
+                "u8",
+                64
+              ]
+            }
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "currency_pair",
+            "type": {
+              "array": [
+                "u8",
+                6
+              ]
+            }
+          },
+          {
+            "name": "sender_vasp",
+            "type": "pubkey"
+          },
+          {
+            "name": "receiver_vasp",
+            "type": "pubkey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WhitelistAction",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Added"
+          },
+          {
+            "name": "Updated"
+          },
+          {
+            "name": "Removed"
+          },
+          {
+            "name": "Sanctioned"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WhitelistEntry",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "wallet",
+            "docs": [
+              "The wallet address this KYC entry applies to"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "kyc_tier",
+            "docs": [
+              "KYC tier: 1 = basic (individual), 2 = institutional"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "kyc_expiry",
+            "docs": [
+              "Unix timestamp when KYC verification expires"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "region_code",
+            "docs": [
+              "ISO 3166-1 alpha-2 region code (e.g. b\"CH\", b\"DE\", b\"US\")"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                2
+              ]
+            }
+          },
+          {
+            "name": "is_sanctioned",
+            "docs": [
+              "Whether the wallet is flagged as sanctioned"
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WhitelistUpdatedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "kyc_tier",
+            "type": "u8"
+          },
+          {
+            "name": "kyc_expiry",
+            "type": "i64"
+          },
+          {
+            "name": "region_code",
+            "type": {
+              "array": [
+                "u8",
+                2
+              ]
+            }
+          },
+          {
+            "name": "action",
+            "type": {
+              "defined": {
+                "name": "WhitelistAction"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

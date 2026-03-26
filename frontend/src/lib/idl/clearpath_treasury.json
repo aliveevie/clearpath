@@ -1,0 +1,616 @@
+{
+  "address": "HK4LnUjmobjbcvhfgEUe3pdnf5N3GHZtqPDVy4TKzeA7",
+  "metadata": {
+    "name": "clearpath_treasury",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "ClearPath Treasury Vault — Institutional multi-sig treasury management"
+  },
+  "instructions": [
+    {
+      "name": "deposit",
+      "discriminator": [
+        242,
+        35,
+        198,
+        137,
+        82,
+        225,
+        242,
+        182
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault.institution_id",
+                "account": "TreasuryVault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint",
+          "docs": [
+            "The Token-2022 mint"
+          ]
+        },
+        {
+          "name": "vault_token_account",
+          "docs": [
+            "Vault's token account (receives the deposit)"
+          ],
+          "writable": true
+        },
+        {
+          "name": "depositor_token_account",
+          "docs": [
+            "Depositor's token account"
+          ],
+          "writable": true
+        },
+        {
+          "name": "depositor",
+          "docs": [
+            "Depositor authority"
+          ],
+          "signer": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "fx_settle",
+      "discriminator": [
+        236,
+        126,
+        59,
+        9,
+        123,
+        61,
+        246,
+        165
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault.institution_id",
+                "account": "TreasuryVault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "fx_config",
+          "docs": [
+            "On-chain FX rate from the oracle"
+          ]
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault_token_account",
+          "writable": true
+        },
+        {
+          "name": "recipient_token_account",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "target_amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "init_vault",
+      "discriminator": [
+        77,
+        79,
+        85,
+        150,
+        33,
+        217,
+        52,
+        106
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "institution_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "institution_id",
+          "type": "pubkey"
+        },
+        {
+          "name": "signers",
+          "type": {
+            "vec": "pubkey"
+          }
+        },
+        {
+          "name": "threshold",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault.institution_id",
+                "account": "TreasuryVault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault_token_account",
+          "writable": true
+        },
+        {
+          "name": "recipient_token_account",
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "FxConfig",
+      "discriminator": [
+        3,
+        215,
+        187,
+        254,
+        123,
+        21,
+        122,
+        179
+      ]
+    },
+    {
+      "name": "TreasuryVault",
+      "discriminator": [
+        86,
+        102,
+        19,
+        109,
+        56,
+        58,
+        144,
+        81
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "DepositEvent",
+      "discriminator": [
+        120,
+        248,
+        61,
+        83,
+        31,
+        142,
+        107,
+        144
+      ]
+    },
+    {
+      "name": "FxSettlementEvent",
+      "discriminator": [
+        82,
+        105,
+        111,
+        68,
+        13,
+        247,
+        175,
+        223
+      ]
+    },
+    {
+      "name": "VaultInitializedEvent",
+      "discriminator": [
+        203,
+        214,
+        91,
+        5,
+        185,
+        248,
+        192,
+        149
+      ]
+    },
+    {
+      "name": "WithdrawEvent",
+      "discriminator": [
+        22,
+        9,
+        133,
+        26,
+        160,
+        44,
+        71,
+        192
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Unauthorized — only the vault authority can perform this action"
+    },
+    {
+      "code": 6001,
+      "name": "InsufficientSigners",
+      "msg": "Insufficient signers for multi-sig threshold"
+    },
+    {
+      "code": 6002,
+      "name": "InvalidThreshold",
+      "msg": "Invalid threshold — must be > 0 and <= number of signers"
+    },
+    {
+      "code": 6003,
+      "name": "InsufficientBalance",
+      "msg": "Insufficient vault balance"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidFxRate",
+      "msg": "Invalid FX rate — rate must be positive"
+    },
+    {
+      "code": 6005,
+      "name": "TooManySigners",
+      "msg": "Too many signers — maximum is 5"
+    }
+  ],
+  "types": [
+    {
+      "name": "DepositEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "institution_id",
+            "type": "pubkey"
+          },
+          {
+            "name": "depositor",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FxConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "currency_pair",
+            "docs": [
+              "Currency pair identifier (e.g. b\"USDCHF\")"
+            ],
+            "type": {
+              "array": [
+                "u8",
+                6
+              ]
+            }
+          },
+          {
+            "name": "rate",
+            "docs": [
+              "FX rate as fixed-point with 6 decimal places (e.g. 883_450 = 0.883450 CHF/USD)"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_updated",
+            "docs": [
+              "Unix timestamp of last rate update"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "authority",
+            "docs": [
+              "Authority allowed to update the FX rate"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FxSettlementEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "institution_id",
+            "type": "pubkey"
+          },
+          {
+            "name": "target_amount",
+            "type": "u64"
+          },
+          {
+            "name": "usdc_amount",
+            "type": "u64"
+          },
+          {
+            "name": "fx_rate",
+            "type": "u64"
+          },
+          {
+            "name": "currency_pair",
+            "type": {
+              "array": [
+                "u8",
+                6
+              ]
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TreasuryVault",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "institution_id",
+            "docs": [
+              "Institution identifier (could be a hash of institution name or registration)"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "docs": [
+              "Primary authority for the vault"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "signers",
+            "docs": [
+              "Multi-sig signers (up to 5)"
+            ],
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "threshold",
+            "docs": [
+              "Required number of signers for withdrawals"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "total_deposited",
+            "docs": [
+              "Total deposited amount tracked off-chain reconciliation"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "total_withdrawn",
+            "docs": [
+              "Total withdrawn amount"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "last_activity",
+            "docs": [
+              "Unix timestamp of last activity"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump seed"
+            ],
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultInitializedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "institution_id",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "threshold",
+            "type": "u8"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WithdrawEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "institution_id",
+            "type": "pubkey"
+          },
+          {
+            "name": "recipient",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ]
+}
