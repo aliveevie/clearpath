@@ -194,7 +194,7 @@ FxConfig {
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_REPO/clearpath.git
+git clone https://github.com/aliveevie/clearpath
 cd clearpath
 
 # Backend
