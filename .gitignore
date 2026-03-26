@@ -1,0 +1,38 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Build outputs
+target/
+dist/
+backend/dist/
+frontend/.next/
+frontend/out/
+
+# Anchor
+.anchor/
+
+# Environment
+.env
+backend/.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+
+# Generated
+mint-info.json
+frontend/tsconfig.tsbuildinfo
+
+# Local app state
+backend/.demo-store.json
+backend/.transfer-ledger.json
+devnet-payer.json
+test-ledger/
+.superset/
