@@ -1,0 +1,26 @@
+[package]
+name = "clearpath-treasury"
+version = "0.1.0"
+description = "ClearPath Treasury Vault — Institutional multi-sig treasury management"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "clearpath_treasury"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = [
+    "anchor-lang/idl-build",
+    "anchor-spl/idl-build",
+]
+
+[dependencies]
+anchor-lang = "0.32.0"
+anchor-spl = { version = "0.32.0" }
+clearpath-hook = { path = "../clearpath-hook", features = ["cpi"] }
+blake3 = { workspace = true }
