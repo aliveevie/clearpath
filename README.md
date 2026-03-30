@@ -15,7 +15,7 @@
 
 <br/>
 
-[**Live Demo**](https://cleave.ibxlab.com/) &nbsp;&bull;&nbsp; [**Demo Video**](https://youtu.be/fLbX2nhzqLU) &nbsp;&bull;&nbsp; [**Architecture**](./arch.md)
+[**Live Demo**](https://clearpath.ibxlab.com/) &nbsp;&bull;&nbsp; [**Demo Video**](https://youtu.be/fLbX2nhzqLU) &nbsp;&bull;&nbsp; [**Architecture**](./arch.md)
 
 <br/>
 
