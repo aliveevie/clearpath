@@ -260,7 +260,7 @@ Built with compliance requirements mandated by the hackathon:
 
 ## Links
 
-- **Live Demo:** [https://cleave.ibxlab.com/](https://cleave.ibxlab.com/)
+- **Live Demo:** [https://clearpath.ibxlab.com/](https://clearpath.ibxlab.com/)
 - **Demo Video:** [https://youtu.be/fLbX2nhzqLU](https://youtu.be/fLbX2nhzqLU)
 - **Architecture:** [arch.md](./arch.md)
 
